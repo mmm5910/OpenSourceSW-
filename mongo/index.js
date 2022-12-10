@@ -34,32 +34,46 @@ app.get('/write', function(req, res) {
     res.sendFile(__dirname +'/write.html')
   })
 
+  app.get('/test', function(req, res) { 
+    res.sendFile(__dirname +'/test.html')
+  })
+
+  app.get('/login', function(req, res) { 
+    res.sendFile(__dirname +'/login.html')
+  })
+
+  app.get('/signin', function(req, res) { 
+    res.sendFile(__dirname +'/signin.html')
+  })
+
+  app.get('/board', function(req, res) { 
+    res.sendFile(__dirname +'/board.html')
+  })
+
+  app.get('/boardwrite', function(req, res) { 
+    res.sendFile(__dirname +'/boardwrite.html')
+  })
+
+
+  app.get('/community', function(req, res) { 
+    res.sendFile(__dirname +'/community.html')
+  })
+
+  app.get('/communitywrite', function(req, res) { 
+    res.sendFile(__dirname +'/communitywrite.html')
+  })
+
+  app.get('/intro', function(req, res) { 
+    res.sendFile(__dirname +'/intro.html')
+  })
+
+
 app.get('/list', function(req, res) {
   db.collection('login').find().toArray(function(err, result){
     console.log(result);
     res.render('list.ejs', {loginfo : result})
   })
 })
-
-// app.post('/add', function(req, res){
-//     db.collection('login').insertOne({email:req.body.email, password: req.body.password}, function(err, result){
-//       if(err) return console.log("error");
-//       console.log("save complete...");
-//       console.log(req.body.email);
-//       console.log(req.body.password);
-//     })
-//     res.send('send complete.....')
-//   })
-
-// app.post('/add', function(req, res){
-//   db.collection('config').findOne({name : 'totalcount'}, function(err, result){
-//     var mycount = result.count;
-//     db.collection('login').insertOne( { _id : (mycount + 1), email : req.body.email, password : req.body.password } , function(){
-//       console.log('save complete')
-//       res.send('send complete....');
-//     });
-//   });
-// });
 
 
 app.post('/add', function(req, res){
