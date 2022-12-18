@@ -26,45 +26,51 @@ MongoClient.connect("mongodb+srv://heekyeong:hallym@cluster0.zi8a3l0.mongodb.net
 })
 
 
+app.use(bodyParser.json()); app.use(bodyParser.urlencoded({extended : true}));
+
+
+app.use(express.static(__dirname) + "/pages");
+
+
 app.get('/', function(req, res) { 
   res.sendFile(__dirname +'/index.html')
   })
 
 app.get('/write', function(req, res) { 
-    res.sendFile(__dirname +'/write.html')
+    res.sendFile(__dirname +'/pages/write.html')
   })
 
   app.get('/test', function(req, res) { 
-    res.sendFile(__dirname +'/test.html')
+    res.sendFile(__dirname +'/pages/test.html')
   })
 
   app.get('/login', function(req, res) { 
-    res.sendFile(__dirname +'/login.html')
+    res.sendFile(__dirname +'/pages/login.html')
   })
 
   app.get('/signin', function(req, res) { 
-    res.sendFile(__dirname +'/signin.html')
+    res.sendFile(__dirname +'/pages/signin.html')
   })
 
   app.get('/board', function(req, res) { 
-    res.sendFile(__dirname +'/board.html')
+    res.sendFile(__dirname +'/pages/board.html')
   })
 
   app.get('/boardwrite', function(req, res) { 
-    res.sendFile(__dirname +'/boardwrite.html')
+    res.sendFile(__dirname +'/pages/boardwrite.html')
   })
 
 
   app.get('/community', function(req, res) { 
-    res.sendFile(__dirname +'/community.html')
+    res.sendFile(__dirname +'/pages/pages/community.html')
   })
 
   app.get('/communitywrite', function(req, res) { 
-    res.sendFile(__dirname +'/communitywrite.html')
+    res.sendFile(__dirname +'/pages/communitywrite.html')
   })
 
   app.get('/intro', function(req, res) { 
-    res.sendFile(__dirname +'/intro.html')
+    res.sendFile(__dirname +'/pages/intro.html')
   })
 
 
@@ -76,7 +82,7 @@ app.get('/list', function(req, res) {
 })
 
 
-app.post('/add', function(req, res){
+app.post('/addUser', function(req, res){
   db.collection('config').findOne({name : 'totalcount'}, function(err, result){
     var mycount = result.count;
     db.collection('login').insertOne( { _id : (mycount + 1), email : req.body.email, password : req.body.password } , function(){
@@ -87,5 +93,32 @@ app.post('/add', function(req, res){
       });  
     });
   });
- 
+});
+
+
+app.post('/addReview', function(req, res){
+  db.collection('config').findOne({name : 'totalcount'}, function(err, result){
+    var mycount = result.count;
+    db.collection('login').insertOne( { _id : (mycount + 1), email : req.body.email, password : req.body.password } , function(){
+      db.collection('config').updateOne({name:'totalcount'},{ $inc: {count:1} },function(err, result){
+        if (err) return console.log(err)
+        console.log('save complete')
+        res.send('send complete....');
+      });  
+    });
+  });
+});
+
+
+app.post('/addText', function(req, res){
+  db.collection('config').findOne({name : 'totalcount'}, function(err, result){
+    var mycount = result.count;
+    db.collection('login').insertOne( { _id : (mycount + 1), email : req.body.email, password : req.body.password } , function(){
+      db.collection('config').updateOne({name:'totalcount'},{ $inc: {count:1} },function(err, result){
+        if (err) return console.log(err)
+        console.log('save complete')
+        res.send('send complete....');
+      });  
+    });
+  });
 });
